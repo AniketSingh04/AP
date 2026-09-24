@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>For You ♡</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at 20% 15%,
+                    rgba(255, 130, 165, 0.12),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 80% 80%,
+                    rgba(180, 70, 110, 0.12),
+                    transparent 35%
+                ),
+                #16080d;
+
+            color: #fff4f6;
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            overflow-x: hidden;
+        }
+
+
+        /* =========================================
+           FLOATING HEARTS
+        ========================================= */
+
+        .floating-hearts {
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            overflow: hidden;
+
+            z-index: 0;
+        }
+
+        .floating-heart {
+            position: absolute;
+
+            bottom: -40px;
+
+            color: rgba(235, 145, 165, 0.28);
+
+            font-size: 14px;
+
+            animation: floatHeart linear forwards;
+
+            filter: blur(0.2px);
+
+            text-shadow: 0 0 12px rgba(255, 150, 180, 0.35);
+        }
+
+        /* Soft romantic atmosphere */
+        .romantic-particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .petal,
+        .sparkle {
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .petal {
+            top: -30px;
+            width: 10px;
+            height: 16px;
+            border-radius: 80% 20% 80% 20%;
+            background: rgba(255, 170, 190, 0.22);
+            filter: blur(0.2px);
+            animation: fallPetal linear forwards;
+            box-shadow: 0 0 10px rgba(255, 140, 175, 0.15);
+        }
+
+        .sparkle {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(255, 225, 232, 0.8);
+            box-shadow: 0 0 10px rgba(255, 190, 210, 0.8);
+            animation: twinkle 2.8s ease-in-out forwards;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            pointer-events: none;
+            opacity: 0;
+            background: linear-gradient(
+                120deg,
+                transparent 25%,
+                rgba(255, 190, 210, 0.16),
+                transparent 75%
+            );
+            transform: translateX(-100%);
+            transition: opacity 0.4s ease;
+        }
+
+        .card:hover::before,
+        .card.active::before {
+            opacity: 1;
+            animation: cardShimmer 1.6s ease;
+        }
+
+        .card.active {
+            border-color: rgba(255, 180, 200, 0.38);
+            box-shadow:
+                0 0 0 1px rgba(255, 180, 200, 0.05),
+                0 20px 70px rgba(120, 25, 55, 0.22);
+        }
+
+        .photo {
+            transition:
+                transform 0.9s ease,
+                filter 0.9s ease,
+                box-shadow 0.9s ease;
+        }
+
+        .content.open .photo {
+            animation: imageReveal 1s ease, photoGlow 3s ease-in-out infinite alternate;
+        }
+
+        .final-message .content.open {
+            animation: reveal 0.8s ease, finalGlow 4s ease-in-out infinite alternate;
+        }
+
+        .heart-burst {
+            position: fixed;
+            z-index: 10;
+            pointer-events: none;
+            font-size: 16px;
+            color: #f3b2c2;
+            text-shadow: 0 0 14px rgba(255, 150, 180, 0.65);
+            animation: burstHeart 900ms ease-out forwards;
+        }
+
+        @keyframes floatHeart {
+
+            0% {
+                transform:
+                    translateY(0)
+                    translateX(0)
+                    rotate(0deg)
+                    scale(0.7);
+
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.7;
+            }
+
+            50% {
+                transform:
+                    translateY(-50vh)
+                    translateX(25px)
+                    rotate(20deg)
+                    scale(1);
+            }
+
+            100% {
+                transform:
+                    translateY(-115vh)
+                    translateX(-30px)
+                    rotate(-20deg)
+                    scale(0.8);
+
+                opacity: 0;
+            }
+        }
+
+
+        /* =========================================
+           OPENING
+        ========================================= */
+
+        .opening {
+            position: relative;
+
+            z-index: 1;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 30px;
+        }
+
+        .opening-content {
+            max-width: 650px;
+
+            animation: fadeUp 1.5s ease;
+        }
+
+        .tiny {
+            color: #d99aaa;
+
+            font-family: Arial, sans-serif;
+
+            font-size: 11px;
+
+            letter-spacing: 4px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 25px;
+        }
+
+        .opening h1 {
+            font-size: clamp(42px, 9vw, 75px);
+
+            font-weight: normal;
+
+            font-style: italic;
+
+            margin-bottom: 22px;
+        }
+
+        .opening p {
+            color: #d9b9c0;
+
+            font-family: Arial, sans-serif;
+
+            font-size: 15px;
+
+            line-height: 1.8;
+
+            margin-bottom: 35px;
+        }
+
+        .begin-btn {
+            border: 1px solid rgba(255, 255, 255, 0.25);
+
+            background: rgba(255, 255, 255, 0.07);
+
+            color: white;
+
+            padding: 15px 35px;
+
+            border-radius: 50px;
+
+            font-family: Georgia, serif;
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+            transition: all 0.35s ease;
+        }
+
+        .begin-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+
+            transform: translateY(-3px);
+
+            border-color: rgba(255, 180, 200, 0.4);
+        }
+
+
+        /* =========================================
+           STORY
+        ========================================= */
+
+        .story {
+            position: relative;
+
+            z-index: 1;
+
+            display: none;
+
+            max-width: 750px;
+
+            margin: auto;
+
+            padding: 80px 22px;
+        }
+
+        .story.visible {
+            display: block;
+
+            animation: fadeUp 1s ease;
+        }
+
+
+        /* =========================================
+           STORY HEADING
+        ========================================= */
+
+        .story-heading {
+            text-align: center;
+
+            margin-bottom: 65px;
+        }
+
+        .story-heading span {
+            color: #c88698;
+
+            font-family: Arial, sans-serif;
+
+            font-size: 11px;
+
+            letter-spacing: 4px;
+
+            text-transform: uppercase;
+        }
+
+        .story-heading h2 {
+            margin-top: 16px;
+
+            font-size: 31px;
+
+            font-weight: normal;
+
+            font-style: italic;
+
+            color: #f4dce1;
+        }
+
+
+        /* =========================================
+           CARDS
+        ========================================= */
+
+        .card {
+            position: relative;
+
+            margin-bottom: 35px;
+
+            padding: 30px;
+
+            border: 1px solid rgba(255, 255, 255, 0.11);
+
+            border-radius: 25px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255, 255, 255, 0.065),
+                    rgba(255, 255, 255, 0.025)
+                );
+
+            backdrop-filter: blur(12px);
+
+            cursor: pointer;
+
+            transition:
+                transform 0.4s ease,
+                border-color 0.4s ease,
+                background 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+
+            border-color: rgba(255, 180, 200, 0.3);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255, 255, 255, 0.085),
+                    rgba(255, 255, 255, 0.03)
+                );
+        }
+
+
+        /* =========================================
+           HEART INDEX
+        ========================================= */
+
+        .card-number {
+            color: #c88698;
+
+            font-family: Georgia, serif;
+
+            font-size: 17px;
+
+            letter-spacing: 5px;
+
+            margin-bottom: 18px;
+
+            opacity: 0.85;
+        }
+
+
+        /* =========================================
+           CARD TITLE
+        ========================================= */
+
+        .card-title {
+            font-size: 27px;
+
+            font-style: italic;
+
+            font-weight: normal;
+
+            color: #fff4f6;
+        }
+
+        .tap {
+            margin-top: 23px;
+
+            color: #9e747e;
+
+            font-family: Arial, sans-serif;
+
+            font-size: 10px;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+        }
+
+
+        /* =========================================
+           REVEALED CONTENT
+        ========================================= */
+
+        .content {
+            display: none;
+
+            margin-top: 30px;
+
+            animation: reveal 0.8s ease;
+        }
+
+        .content.open {
+            display: block;
+        }
+
+
+        /* =========================================
+           LYRICS
+        ========================================= */
+
+        .lyrics {
+            color: #f3dce1;
+
+            font-size: 18px;
+
+            line-height: 1.9;
+
+            margin-bottom: 30px;
+        }
+
+        .lyrics p {
+            margin-bottom: 15px;
+        }
+
+        .lyrics .first {
+            font-weight: bold;
+
+            color: #ffffff;
+        }
+
+
+        /* =========================================
+           NOTE
+        ========================================= */
+
+        .note {
+            color: #c99aa6;
+
+            font-family: Arial, sans-serif;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* =========================================
+           PHOTOS
+        ========================================= */
+
+        .photo {
+            width: 100%;
+
+            display: block;
+
+            border-radius: 18px;
+
+            max-height: 700px;
+
+            object-fit: cover;
+
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.45);
+
+            animation: imageReveal 1s ease;
+        }
+
+
+        /* =========================================
+           FINAL MESSAGE
+        ========================================= */
+
+        .final-message {
+            text-align: center;
+        }
+
+        .final-message .content {
+            text-align: left;
+        }
+
+        .message {
+            color: #f8e6ea;
+
+            font-size: 19px;
+
+            line-height: 2;
+
+            margin-bottom: 30px;
+        }
+
+        .message p {
+            margin-bottom: 18px;
+        }
+
+        .signature {
+            margin-top: 28px;
+
+            color: #e69aac;
+
+            font-size: 20px;
+
+            line-height: 1.8;
+
+            font-style: italic;
+
+            text-align: center;
+        }
+
+
+        /* =========================================
+           ENDING
+        ========================================= */
+
+        .ending {
+            text-align: center;
+
+            padding: 100px 20px 120px;
+
+            color: #d5a9b4;
+        }
+
+        .ending h2 {
+            font-size: 30px;
+
+            font-weight: normal;
+
+            font-style: italic;
+
+            margin-bottom: 18px;
+        }
+
+        .ending p {
+            font-family: Arial, sans-serif;
+
+            color: #a9828d;
+
+            font-size: 14px;
+        }
+
+        .heart {
+            margin-top: 25px;
+
+            font-size: 25px;
+
+            animation: heartbeat 1.5s infinite;
+        }
+
+        .hidden-ending {
+            max-width: 500px;
+
+            margin: 25px auto 0;
+
+            color: #d99aaa;
+
+            font-family: Georgia, serif;
+
+            font-size: 17px;
+
+            font-style: italic;
+
+            line-height: 1.8;
+
+            opacity: 0;
+
+            transform: translateY(12px);
+
+            transition:
+                opacity 1.5s ease,
+                transform 1.5s ease;
+        }
+
+        .hidden-ending.show {
+            opacity: 1;
+
+            transform: translateY(0);
+        }
+
+
+        /* =========================================
+           ANIMATIONS
+        ========================================= */
+
+        @keyframes fadeUp {
+
+            from {
+                opacity: 0;
+
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes reveal {
+
+            from {
+                opacity: 0;
+
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes imageReveal {
+
+            from {
+                opacity: 0;
+
+                transform: scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+
+                transform: scale(1);
+            }
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.18);
+            }
+        }
+
+        @keyframes fallPetal {
+            0% {
+                transform: translate3d(0, -30px, 0) rotate(0deg);
+                opacity: 0;
+            }
+
+            12% {
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: translate3d(45px, 50vh, 0) rotate(150deg);
+            }
+
+            100% {
+                transform: translate3d(-35px, 115vh, 0) rotate(320deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0.4);
+            }
+
+            35% {
+                opacity: 0.9;
+                transform: scale(1);
+            }
+
+            65% {
+                opacity: 0.35;
+                transform: scale(0.7);
+            }
+        }
+
+        @keyframes cardShimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        @keyframes photoGlow {
+            from {
+                filter: brightness(1);
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+            }
+
+            to {
+                filter: brightness(1.04);
+                box-shadow:
+                    0 20px 65px rgba(0, 0, 0, 0.45),
+                    0 0 28px rgba(224, 125, 153, 0.12);
+            }
+        }
+
+        @keyframes finalGlow {
+            from {
+                box-shadow: none;
+            }
+
+            to {
+                box-shadow: 0 0 55px rgba(170, 55, 95, 0.08);
+            }
+        }
+
+        @keyframes burstHeart {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.4) rotate(0deg);
+            }
+
+            15% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                transform:
+                    translate(
+                        calc(-50% + var(--x)),
+                        calc(-50% + var(--y))
+                    )
+                    scale(1.15)
+                    rotate(var(--r));
+            }
+        }
+
+        @keyframes softPulse {
+            0%, 100% {
+                text-shadow: 0 0 0 rgba(255, 160, 185, 0);
+            }
+
+            50% {
+                text-shadow: 0 0 22px rgba(255, 160, 185, 0.32);
+            }
+        }
+
+        .story-heading h2 {
+            animation: softPulse 4s ease-in-out infinite;
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .story {
+                padding: 60px 16px;
+            }
+
+            .story-heading {
+                margin-bottom: 50px;
+            }
+
+            .story-heading h2 {
+                font-size: 27px;
+            }
+
+            .card {
+                padding: 24px;
+
+                border-radius: 20px;
+            }
+
+            .card-title {
+                font-size: 24px;
+            }
+
+            .lyrics {
+                font-size: 17px;
+            }
+
+            .photo {
+                max-height: 650px;
+            }
+
+            .message {
+                font-size: 18px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     FLOATING HEARTS
+===================================================== -->
+
+<div
+    class="floating-hearts"
+    id="floatingHearts">
+</div>
+
+<div
+    class="romantic-particles"
+    id="romanticParticles">
+</div>
+
+
+
+<!-- =====================================================
+     OPENING
+===================================================== -->
+
+<section
+    class="opening"
+    id="opening"
+>
+
+    <div class="opening-content">
+
+        <div class="tiny">
+            A little something for you
+        </div>
+
+        <h1>
+            For you, Bangaru ♡
+        </h1>
+
+        <p>
+            Some things are easier to say<br>
+            when you let a few songs say them first.
+        </p>
+
+        <button
+            class="begin-btn"
+            onclick="startStory()"
+        >
+            Tap to begin ♡
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     STORY
+===================================================== -->
+
+<main
+    class="story"
+    id="story"
+>
+
+
+    <!-- INTRO -->
+
+    <div class="story-heading">
+
+        <span>
+            Five little things
+        </span>
+
+        <h2>
+            A few things my heart wanted to say.
+        </h2>
+
+    </div>
+
+
+
+    <!-- =================================================
+         1 — TERI JHUKI NAZAR
+    ================================================== -->
+
+    <article
+        class="card"
+        onclick="toggleCard(this)"
+    >
+
+        <div class="card-number">
+            ♡
+        </div>
+
+        <h3 class="card-title">
+            Teri Jhuki Nazar
+        </h3>
+
+        <div class="tap">
+            Look a little closer ♡
+        </div>
+
+
+        <div class="content">
+
+            <div class="lyrics">
+
+                <p>
+                    <span class="first">T</span>eri zulf jab bhi
+                    bikhar jaati hai
+                </p>
+
+                <p>
+                    <span class="first">A</span>ye haseen tu haseen
+                    aur ho jaati hai
+                </p>
+
+                <p>
+                    <span class="first">J</span>o kitaabo me padhte
+                    rahe aaj tak
+                </p>
+
+                <p>
+                    <span class="first">W</span>oh pari humko
+                    tujh mein nazar aati hai
+                </p>
+
+                <br>
+
+                <p>
+                    <span class="first">C</span>haand Bhi Wahin Hai,
+                    Wahin Hai Sitare
+                </p>
+
+                <p>
+                    <span class="first">T</span>ere Baad Phike Phike
+                    Lagte Hai Saare
+                </p>
+
+                <p>
+                    <span class="first">C</span>haand Bhi Wahin Hai,
+                    Wahin Hai Sitare
+                </p>
+
+                <p>
+                    <span class="first">T</span>ere Baad Phike Phike
+                    Lagte Hai Saare
+                </p>
+
+            </div>
+
+
+            <div class="note">
+                Because sometimes even the obvious things
+                need to be said.
+            </div>
+
+
+            <!-- CHANGE PHOTO HERE -->
+
+            <img
+                class="photo"
+                src="images/photo1.jpg"
+                alt="For you"
+            >
+
+        </div>
+
+    </article>
+
+
+
+    <!-- =================================================
+         2 — TARASTI HAIN NIGAAHEIN
+    ================================================== -->
+
+    <article
+        class="card"
+        onclick="toggleCard(this)"
+    >
+
+        <div class="card-number">
+            ♡ ♡
+        </div>
+
+        <h3 class="card-title">
+            Tarasti Hain Nigahein
+        </h3>
+
+        <div class="tap">
+            Some things are felt from afar ♡
+        </div>
+
+
+        <div class="content">
+
+            <div class="lyrics">
+
+                <p>
+                    <span class="first">T</span>arasti Hain
+                    Nigaahein Meri
+                </p>
+
+                <p>
+                    <span class="first">T</span>akti Hain
+                    Raahein Teri
+                </p>
+
+                <p>
+                    <span class="first">S</span>unn Kabhi
+                    Aahein Meri
+                </p>
+
+                <p>
+                    <span class="first">Y</span>eh Kaise
+                    Main Bataaun
+                </p>
+
+                <p>
+                    <span class="first">T</span>ujhe Soti Nahin
+                    Aankhein Meri
+                </p>
+
+                <p>
+                    <span class="first">K</span>at’ti Nahin
+                    Raatein Meri
+                </p>
+
+            </div>
+
+
+            <div class="note">
+                For all those moments when I just wanted
+                to see you.
+            </div>
+
+
+            <!-- CHANGE PHOTO HERE -->
+
+            <img
+                class="photo"
+                src="images/photo2.jpg"
+                alt="You"
+            >
+
+        </div>
+
+    </article>
+
+
+
+    <!-- =================================================
+         3 — TERI BIN NAHI LAAGE
+    ================================================== -->
+
+    <article
+        class="card"
+        onclick="toggleCard(this)"
+    >
+
+        <div class="card-number">
+            ♡ ♡ ♡
+        </div>
+
+        <h3 class="card-title">
+            Teri Bin Nahi Laage
+        </h3>
+
+        <div class="tap">
+            This one hits a little closer ♡
+        </div>
+
+
+        <div class="content">
+
+            <div class="lyrics">
+
+                <!--
+                =========================================
+                REPLACE THIS SECTION WITH YOUR EXACT
+                LYRICS FOR "TERI BIN NAHI LAAGE"
+
+                Example:
+
+                <p>
+                    <span class="first">T</span>eri ...
+                </p>
+
+                =========================================
+                -->
+
+                <p>
+                    <span class="first">T</span>eri bin nahi laage...
+                </p>
+
+                <p>
+                    <span class="first">Y</span>ou can replace
+                    this with the exact lyrics.
+                </p>
+
+            </div>
+
+
+            <div class="note">
+                Some feelings quietly become part of you.
+            </div>
+
+
+            <!-- CHANGE PHOTO HERE -->
+
+            <img
+                class="photo"
+                src="images/photo3.jpg"
+                alt="You"
+            >
+
+        </div>
+
+    </article>
+
+
+
+    <!-- =================================================
+         4 — TU HI MERI SHAB HAI
+    ================================================== -->
+
+    <article
+        class="card"
+        onclick="toggleCard(this)"
+    >
+
+        <div class="card-number">
+            ♡ ♡ ♡ ♡
+        </div>
+
+        <h3 class="card-title">
+            Tu Hi Meri Shab Hai
+        </h3>
+
+        <div class="tap">
+            This one says a little more ♡
+        </div>
+
+
+        <div class="content">
+
+            <div class="lyrics">
+
+                <p>
+                    <span class="first">T</span>u hi meri shab hai
+                    subha hai tu hi din hai mera
+                </p>
+
+                <p>
+                    <span class="first">T</span>u hi mera rab hai
+                    jahaan hai tu hi meri duniya
+                </p>
+
+            </div>
+
+
+            <div class="note">
+                Maybe this one needed no explanation.
+            </div>
+
+
+            <!-- CHANGE PHOTO HERE -->
+
+            <img
+                class="photo"
+                src="images/photo4.jpg"
+                alt="You"
+            >
+
+        </div>
+
+    </article>
+
+
+
+    <!-- =================================================
+         5 — YOUR MESSAGE
+    ================================================== -->
+
+    <article
+        class="card final-message"
+        onclick="toggleCard(this)"
+    >
+
+        <div class="card-number">
+            ♡ ♡ ♡ ♡ ♡
+        </div>
+
+        <h3 class="card-title">
+            One More Thing
+        </h3>
+
+        <div class="tap">
+            This one's actually from me ♡
+        </div>
+
+
+        <div class="content">
+
+            <div class="message">
+
+                <p>
+                    You are not an option.
+                </p>
+
+                <p>
+                    You are present —
+                    however and whatever way you choose
+                    to call this:
+                    dating, situationship, relationship...
+                </p>
+
+                <p>
+                    I am not stuck with you.
+                    I am with you.
+                </p>
+
+                <p>
+                    And yes, accidents do happen.
+                </p>
+
+                <p>
+                    But this one happened with us,
+                    and between us.
+                </p>
+
+
+                <div class="signature">
+
+                    You are special to me, Bangaru.<br>
+
+                    Nange Ishta Neenu. ♡
+
+                </div>
+
+            </div>
+
+
+            <!-- COUPLE PHOTO -->
+
+            <img
+                class="photo"
+                src="images/us.jpg"
+                alt="Us"
+            >
+
+        </div>
+
+    </article>
+
+
+
+    <!-- =================================================
+         ENDING
+    ================================================== -->
+
+    <section class="ending">
+
+        <h2>
+            That's how I wanted to say.
+        </h2>
+
+        <p>
+            Except...
+        </p>
+
+        <div class="heart">
+            ♡
+        </div>
+
+
+        <!-- Appears after a short pause -->
+
+        <div
+            class="hidden-ending"
+            id="hiddenEnding"
+        >
+            And somehow, my heart still has more to say. ♡
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+    /* =========================================
+       OPEN STORY
+    ========================================= */
+
+    function startStory() {
+
+        const opening =
+            document.getElementById("opening");
+
+        const story =
+            document.getElementById("story");
+
+
+        opening.style.display = "none";
+
+        story.classList.add("visible");
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+
+
+    /* =========================================
+       OPEN / CLOSE CARD
+    ========================================= */
+
+    function toggleCard(card) {
+
+        const content =
+            card.querySelector(".content");
+
+        const isOpen = content.classList.contains("open");
+
+        if (isOpen) {
+
+            content.classList.remove("open");
+            card.classList.remove("active");
+
+        } else {
+
+            content.classList.add("open");
+            card.classList.add("active");
+
+            createHeartBurst(card);
+
+            setTimeout(function () {
+
+                content.scrollIntoView({
+                    behavior: "smooth",
+                    block: "nearest"
+                });
+
+            }, 100);
+
+        }
+    }
+
+    /* =========================================
+       ROMANTIC HEART BURST
+    ========================================= */
+
+    function createHeartBurst(element) {
+
+        const rect = element.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + 55;
+
+        for (let i = 0; i < 9; i++) {
+
+            const heart = document.createElement("span");
+
+            heart.className = "heart-burst";
+            heart.innerHTML = i % 3 === 0 ? "♡" : "♥";
+
+            const angle = (Math.PI * 2 * i) / 9;
+            const distance = 35 + Math.random() * 55;
+
+            heart.style.left = centerX + "px";
+            heart.style.top = centerY + "px";
+            heart.style.setProperty("--x", Math.cos(angle) * distance + "px");
+            heart.style.setProperty("--y", Math.sin(angle) * distance - 20 + "px");
+            heart.style.setProperty("--r", (Math.random() * 50 - 25) + "deg");
+
+            document.body.appendChild(heart);
+
+            setTimeout(function () {
+                heart.remove();
+            }, 950);
+        }
+    }
+
+
+
+    /* =========================================
+       FLOATING HEARTS
+    ========================================= */
+
+    const heartContainer =
+        document.getElementById("floatingHearts");
+
+
+    function createHeart() {
+
+        const heart =
+            document.createElement("span");
+
+
+        heart.classList.add(
+            "floating-heart"
+        );
+
+
+        heart.innerHTML = "♡";
+
+
+        heart.style.left =
+            Math.random() * 100 + "%";
+
+
+        heart.style.fontSize =
+            (10 + Math.random() * 16) + "px";
+
+
+        heart.style.animationDuration =
+            (7 + Math.random() * 8) + "s";
+
+
+        heart.style.opacity =
+            0.25 + Math.random() * 0.35;
+
+
+        heartContainer.appendChild(heart);
+
+
+        setTimeout(function () {
+
+            heart.remove();
+
+        }, 15000);
+
+    }
+
+
+    /*
+       A heart every 900ms
+    */
+
+    setInterval(
+        createHeart,
+        900
+    );
+
+
+
+    /* =========================================
+       PETALS + SPARKLES
+    ========================================= */
+
+    const romanticParticles =
+        document.getElementById("romanticParticles");
+
+    function createPetal() {
+
+        const petal = document.createElement("span");
+
+        petal.className = "petal";
+
+        petal.style.left = Math.random() * 100 + "%";
+        petal.style.animationDuration = (8 + Math.random() * 7) + "s";
+        petal.style.animationDelay = (Math.random() * 1.5) + "s";
+        petal.style.transform = "rotate(" + Math.random() * 360 + "deg)";
+        petal.style.opacity = 0.15 + Math.random() * 0.35;
+
+        romanticParticles.appendChild(petal);
+
+        setTimeout(function () {
+            petal.remove();
+        }, 17000);
+    }
+
+    function createSparkle() {
+
+        const sparkle = document.createElement("span");
+
+        sparkle.className = "sparkle";
+
+        sparkle.style.left = (5 + Math.random() * 90) + "%";
+        sparkle.style.top = (5 + Math.random() * 90) + "%";
+        sparkle.style.animationDelay = (Math.random() * 1.5) + "s";
+
+        romanticParticles.appendChild(sparkle);
+
+        setTimeout(function () {
+            sparkle.remove();
+        }, 4500);
+    }
+
+    setInterval(createPetal, 1500);
+    setInterval(createSparkle, 850);
+
+    /* =========================================
+       FINAL "EXCEPT..." REVEAL
+    ========================================= */
+
+    const hiddenEnding =
+        document.getElementById("hiddenEnding");
+
+
+    /*
+       Wait until the page has been around
+       for a little while before revealing
+       the final line.
+    */
+
+    setTimeout(function () {
+
+        hiddenEnding.classList.add("show");
+
+    }, 3500);
+
+
+</script>
+
+
+</body>
+
+</html>
